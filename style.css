@@ -29,7 +29,7 @@ header h1 {
 
 /* Surah List */
 .surah-list {
-  width: 20%;
+  width: 30%;
   background: #ffffff;
   border-right: 1px solid #ddd;
   padding: 15px;
@@ -61,7 +61,7 @@ header h1 {
 
 /* Viewer */
 .viewer {
-  width: 80%;
+  width: 70%;
   position: relative;
   background: #eee;
 }
@@ -90,3 +90,4 @@ footer {
   background: #ddd;
   font-size: 0.9rem;
 }
+
