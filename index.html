@@ -8,41 +8,40 @@
 </head>
 <body>
 
-  <header>
-    <h1>Kanz-e-Adfar ( کَنزِ اَدفار )</h1>
-    <h3>Kashmiri Poetic Translation of Quran</h3>
-    <p>A respectful presentation of Quranic Surahs in Kashmiri poetic schema</p>
-  </header>
+<header>
+  <h1 style="margin-bottom: 20px;">Kanz-e-Adfar ( کنز أدفار )</h1>
+  <h3>Kashmiri Poetic Translation of the Quran</h3>
+  <p>A respectful presentation of Quranic Surahs in Kashmiri poetic schema</p>
+</header>
 
-  <main class="container">
-    
-    <!-- Surah List -->
-    <aside class="surah-list">
-      <h2>Surahs</h2>
-      <ul id="surahList">
-        <!-- Loaded from JSON -->
-      </ul>
-    </aside>
+<main id="mainContainer" class="home-mode">
 
-    <!-- PDF Viewer -->
-    <section class="viewer">
-      <div id="placeholder">
-        <p>Select a Surah to read its poetic translation.</p>
-      </div>
+  <!-- SURAH LIST -->
+  <section class="surah-section">
+    <ul id="surahList">
+      <!-- Loaded from JSON -->
+    </ul>
+  </section>
 
-      <iframe
-        id="pdfViewer"
-        title="Surah PDF Viewer"
-        loading="lazy">
-      </iframe>
-    </section>
+  <!-- PDF VIEWER (NO IFRAME NOW) -->
+  <section class="viewer-section">
+    <button id="backBtn">← Back to Surah List</button>
 
-  </main>
+    <!-- EMBED used instead of iframe -->
+    <embed
+      id="pdfViewer"
+      type="application/pdf"
+      width="100%"
+      height="100%"
+    />
+  </section>
 
-  <footer>
-    <p>© Kashmiri Poetic Quran Translation</p>
-  </footer>
+</main>
 
-  <script src="script.js"></script>
+<footer>
+  <p>© Kanz-e-Adfar</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
