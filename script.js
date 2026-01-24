@@ -1,159 +1,41 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
-}
+const surahList = document.getElementById("surahList");
+const pdfViewer = document.getElementById("pdfViewer");
+const mainContainer = document.getElementById("mainContainer");
+const backBtn = document.getElementById("backBtn");
 
-body {
-  background: #f6f6f6;
-  color: #222;
-}
+fetch("data/surahs.json")
+  .then(res => res.json())
+  .then(data => {
+    data.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item.name;
 
-header {
-  background: #0f5132;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
+      // Highlight About Adfar
+      if (item.type === "about") {
+        li.classList.add("about");
+      }
 
-header h1 {
-  font-size: 1.7rem;
-}
+      li.addEventListener("click", () => {
+        // If PDF not yet available
+        if (!item.driveId) {
+          alert("PDF will be available soon.");
+          return;
+        }
 
-header p {
-  margin-top: 5px;
-  font-size: 0.95rem;
-}
+        const pdfUrl = `https://drive.google.com/file/d/${item.driveId}/preview`;
+  window.location.href = pdfUrl;
+      });
 
-main {
-  min-height: calc(100vh - 140px);
-  transition: all 0.3s ease;
-}
+      surahList.appendChild(li);
+    });
+  })
+  .catch(err => {
+    console.error("Error loading surahs.json", err);
+  });
 
-/* ================= HOME MODE ================= */
-
-.home-mode .surah-section {
-  max-width: 500px;
-  margin: 40px auto;
-}
-
-.home-mode .viewer-section {
-  display: none;
-}
-
-/* ================= SURAH LIST ================= */
-
-.surah-section ul {
-  list-style: none;
-}
-
-.surah-section li {
-  font-weight: bold;
-  padding: 14px;
-  margin-bottom: 10px;
-  background: #1abb4a;
-  border-radius: 6px;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.2s;
-  border: 1px solid #ddd;
-}
-
-.surah-section li:hover {
-  background: #77b1e8;
-  color: white;
-}
-
-/* ============== ABOUT ADFAR (SPECIAL) ============== */
-
-.surah-section li.about {
-  background: #fff7d6;
-  border: 2px solid #c9a227;
-  font-weight: 600;
-}
-
-.surah-section li.about:hover {
-  background: #c9a227;
-  color: #000;
-}
-
-/* ================= READING MODE ================= */
-
-.reading-mode {
-  display: flex;
-  height: 100%;
-}
-
-.reading-mode .surah-section {
-  width: 30%;
-  padding: 15px;
-  border-right: 1px solid #ddd;
-  max-width: none;
-  margin: 0;
-  overflow-y: auto;
-}
-
-.reading-mode .viewer-section {
-  width: 70%;
-  display: block;
-  position: relative;
-  background: #000;
-}
-
-/* ================= PDF VIEWER (EMBED) ================= */
-
-#pdfViewer {
-  display: block;               /* important for embed */
-  width: 100%;
-  height: calc(100vh - 180px);
-  border: none;
-  background: #000;
-}
-
-/* ================= BACK BUTTON ================= */
-
-#backBtn {
-  margin: 10px;
-  padding: 8px 14px;
-  border: none;
-  background: #0f5132;
-  color: white;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-#backBtn:hover {
-  background: #083d24;
-}
-
-/* ================= FOOTER ================= */
-
-footer {
-  text-align: center;
-  padding: 10px;
-  background: #e1e1e1;
-  font-size: 0.85rem;
-}
-
-/* ================= MOBILE SUPPORT ================= */
-
-@media (max-width: 768px) {
-  .reading-mode {
-    flex-direction: column;
-  }
-
-  .reading-mode .surah-section {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .reading-mode .viewer-section {
-    width: 100%;
-  }
-
-  #pdfViewer {
-    height: calc(100vh - 240px);
-  }
-}
+// Back to Surah List
+backBtn.addEventListener("click", () => {
+  pdfViewer.src = ""; // stop PDF loading
+  mainContainer.classList.remove("reading-mode");
+  mainContainer.classList.add("home-mode");
+});
