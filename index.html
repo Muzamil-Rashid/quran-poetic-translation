@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kanz-e-Adfar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Kanz-e-Adfar ( کَنزِ اَدفار )</h1>
+    <h3>Kashmiri Poetic Translation of Quran</h3>
+    <p>A respectful presentation of Quranic Surahs in Kashmiri poetic schema</p>
+  </header>
+
+  <main class="container">
+    
+    <!-- Surah List -->
+    <aside class="surah-list">
+      <h2>Surahs</h2>
+      <ul id="surahList">
+        <!-- Loaded from JSON -->
+      </ul>
+    </aside>
+
+    <!-- PDF Viewer -->
+    <section class="viewer">
+      <div id="placeholder">
+        <p>Select a Surah to read its poetic translation.</p>
+      </div>
+
+      <iframe
+        id="pdfViewer"
+        title="Surah PDF Viewer"
+        loading="lazy">
+      </iframe>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© Kashmiri Poetic Quran Translation</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

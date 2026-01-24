@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #f7f7f7;
+  color: #222;
+}
+
+header {
+  background: #0f5132;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.6rem;
+  margin-bottom: 5px;
+}
+
+.container {
+  display: flex;
+  height: calc(100vh - 160px);
+}
+
+/* Surah List */
+.surah-list {
+  width: 20%;
+  background: #ffffff;
+  border-right: 1px solid #ddd;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.surah-list h2 {
+  margin-bottom: 10px;
+  color: #0f5132;
+}
+
+.surah-list ul {
+  list-style: none;
+}
+
+.surah-list li {
+  padding: 10px;
+  margin-bottom: 6px;
+  background: #f1f1f1;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+
+.surah-list li:hover {
+  background: #0f5132;
+  color: #fff;
+}
+
+/* Viewer */
+.viewer {
+  width: 80%;
+  position: relative;
+  background: #eee;
+}
+
+#placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  text-align: center;
+  padding: 20px;
+}
+
+#pdfViewer {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #ddd;
+  font-size: 0.9rem;
+}
