@@ -9,9 +9,8 @@
 <body>
 
 <header>
-  <h1 style="margin-bottom: 20px;">Kanz-e-Adfar ( کنز أدفار )</h1>
-  <h3>Kashmiri Poetic Translation of the Quran</h3>
-  <p>A respectful presentation of Quranic Surahs in Kashmiri poetic schema</p>
+  <h1>Kanz-e-Adfar ( کنز أدفار )</h1>
+  <p>Kashmiri Poetic Translation of the Quran</p>
 </header>
 
 <main id="mainContainer" class="home-mode">
@@ -19,21 +18,16 @@
   <!-- SURAH LIST -->
   <section class="surah-section">
     <ul id="surahList">
-      <!-- Loaded from JSON -->
+      <!-- Filled by JS -->
     </ul>
   </section>
 
-  <!-- PDF VIEWER (NO IFRAME NOW) -->
+  <!-- PDF VIEW / MESSAGE -->
   <section class="viewer-section">
     <button id="backBtn">← Back to Surah List</button>
-
-    <!-- EMBED used instead of iframe -->
-    <embed
-      id="pdfViewer"
-      type="application/pdf"
-      width="100%"
-      height="100%"
-    />
+    <div id="viewerContent">
+      <p>Select a Surah to read.</p>
+    </div>
   </section>
 
 </main>
