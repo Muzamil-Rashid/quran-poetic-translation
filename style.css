@@ -37,13 +37,13 @@ header {
 .subtitle {
   font-size: 0.95rem;
   margin-top: 6px;
-  opacity: 0.95;
+  opacity: 100;
 }
 
 .description {
   font-size: 0.85rem;
   margin-top: 6px;
-  opacity: 0.85;
+  opacity: 0.95;
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
@@ -67,11 +67,14 @@ header {
 #surahList li {
   padding: 14px;
   margin-bottom: 10px;
-  background: #ffffff;
-  border-radius: 6px;
+  background: #1df32c;
+  border-radius: 20px;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
+}
+#surahList li:hover {
+  background: #61adec;
 }
 
 #surahList li.about {
@@ -136,3 +139,4 @@ footer {
   padding: 8px;
   font-size: 0.85rem;
 }
+
