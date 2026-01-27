@@ -7,8 +7,6 @@ const surahListEl = document.getElementById("surahList");
 const pdfViewer = document.getElementById("pdfViewer");
 const backBtn = document.getElementById("backBtn");
 
-
-
 const surahs = [
   { name: "About Adfar", type: "about", pdf: "Data/About.pdf" },
 
@@ -44,7 +42,7 @@ surahs.forEach(item => {
   surahListEl.appendChild(li);
 });
 
-/* OPEN VIEWER */
+/* OPEN PDF */
 function openPDF(pdfPath) {
   listSection.style.display = "none";
   viewerSection.style.display = "block";
@@ -58,17 +56,18 @@ function openPDF(pdfPath) {
   pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
     for (let p = 1; p <= pdf.numPages; p++) {
       pdf.getPage(p).then(page => {
-        const viewport = page.getViewport({ scale: 1.2 });
+        const containerWidth = pdfViewer.clientWidth;
+        const unscaled = page.getViewport({ scale: 1 });
+        const scale = containerWidth / unscaled.width;
+
+        const viewport = page.getViewport({ scale });
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
         canvas.width = viewport.width;
         canvas.height = viewport.height;
-        canvas.style.margin = "15px auto";
-        canvas.style.display = "block";
 
         pdfViewer.appendChild(canvas);
-
         page.render({ canvasContext: ctx, viewport });
       });
     }
@@ -81,4 +80,3 @@ backBtn.onclick = () => {
   listSection.style.display = "block";
   pdfViewer.innerHTML = "";
 };
-
