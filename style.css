@@ -67,7 +67,7 @@ header {
 #surahList li {
   padding: 14px;
   margin-bottom: 10px;
-  background: #1df32c;
+  background-color: #1df32c; 
   border-radius: 20px;
   text-align: center;
   cursor: pointer;
@@ -139,4 +139,5 @@ footer {
   padding: 8px;
   font-size: 0.85rem;
 }
+
 
