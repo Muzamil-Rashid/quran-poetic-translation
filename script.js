@@ -1,6 +1,14 @@
-/**************************************
- * ALL SURAHS LIST (FULL QURAN)
- **************************************/
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+const listSection = document.getElementById("listSection");
+const viewerSection = document.getElementById("viewerSection");
+const surahListEl = document.getElementById("surahList");
+const pdfViewer = document.getElementById("pdfViewer");
+const backBtn = document.getElementById("backBtn");
+
+
+
 const surahs = [
   { name: "About Adfar", type: "about", pdf: "Data/About.pdf" },
 
@@ -19,29 +27,58 @@ const surahs = [
   // 👉 baaki surahs isi pattern pe add karte jao
 ];
 
-/**************************************
- * RENDER SURAH LIST
- **************************************/
-const surahList = document.getElementById("surahList");
 
+/* RENDER LIST */
 surahs.forEach(item => {
   const li = document.createElement("li");
-  li.textContent = item.name;
 
-  // Highlight About
-  if (item.type === "about") {
+  if (typeof item === "string") {
+    li.textContent = "Surah " + item;
+    li.onclick = () => openPDF("");
+  } else {
+    li.textContent = item.name;
     li.classList.add("about");
+    li.onclick = () => openPDF(item.pdf);
   }
 
-  li.addEventListener("click", () => {
-    if (!item.pdf) {
-      alert("PDF will be available soon");
-      return;
-    }
-
-    // 🔥 DIRECT FULL PAGE PDF (NO PREVIEW, NO IFRAME)
-    window.location.href = item.pdf;
-  });
-
-  surahList.appendChild(li);
+  surahListEl.appendChild(li);
 });
+
+/* OPEN VIEWER */
+function openPDF(pdfPath) {
+  listSection.style.display = "none";
+  viewerSection.style.display = "block";
+  pdfViewer.innerHTML = "";
+
+  if (!pdfPath) {
+    pdfViewer.innerHTML = "<p><strong>PDF will be available soon.</strong></p>";
+    return;
+  }
+
+  pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
+    for (let p = 1; p <= pdf.numPages; p++) {
+      pdf.getPage(p).then(page => {
+        const viewport = page.getViewport({ scale: 1.2 });
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        canvas.style.margin = "15px auto";
+        canvas.style.display = "block";
+
+        pdfViewer.appendChild(canvas);
+
+        page.render({ canvasContext: ctx, viewport });
+      });
+    }
+  });
+}
+
+/* BACK */
+backBtn.onclick = () => {
+  viewerSection.style.display = "none";
+  listSection.style.display = "block";
+  pdfViewer.innerHTML = "";
+};
+
