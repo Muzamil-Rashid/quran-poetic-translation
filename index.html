@@ -4,30 +4,30 @@
   <meta charset="UTF-8" />
   <title>Kanz-e-Adfar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
+<header id="siteHeader">
   <h1>Kanz-e-Adfar ( کنز أدفار )</h1>
   <p>Kashmiri Poetic Translation of the Quran</p>
 </header>
 
-<main id="mainContainer" class="home-mode">
+<main id="app">
 
   <!-- SURAH LIST -->
-  <section class="surah-section">
-    <ul id="surahList">
-      <!-- Filled by JS -->
-    </ul>
+  <section id="listSection">
+    <ul id="surahList"></ul>
   </section>
 
-  <!-- PDF VIEW / MESSAGE -->
-  <section class="viewer-section">
+  <!-- PDF VIEWER -->
+  <section id="viewerSection">
     <button id="backBtn">← Back to Surah List</button>
-    <div id="viewerContent">
-      <p>Select a Surah to read.</p>
-    </div>
+    <div id="pdfViewer"></div>
   </section>
 
 </main>
