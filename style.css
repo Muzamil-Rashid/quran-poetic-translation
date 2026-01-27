@@ -10,17 +10,51 @@ body {
   color: #222;
 }
 
-/* Header */
+/* HEADER */
 header {
   background: #0f5132;
   color: #fff;
-  padding: 18px;
+  padding: 18px 12px;
   text-align: center;
 }
 
-/* App */
+/* TITLE */
+#mainTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+#mainTitle .urdu {
+  font-family: "Noto Nastaliq Urdu", serif;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+/* SUBTITLE */
+.subtitle {
+  font-size: 0.95rem;
+  margin-top: 6px;
+  opacity: 100%;
+}
+
+/* DESCRIPTION */
+.description {
+  font-size: 0.85rem;
+  margin-top: 6px;
+  opacity: 0.95;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* APP */
 #app {
-  min-height: calc(100vh - 150px);
+  min-height: calc(100vh - 170px);
 }
 
 /* LIST */
@@ -36,11 +70,15 @@ header {
 #surahList li {
   padding: 14px;
   margin-bottom: 10px;
-  background: #fff;
-  border-radius: 6px;
+  background: #1df32c;
+  border-radius: 20px;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #ddd;
+  border: 2px solid #0a0a0a;
+}
+
+#surahList li:hover {
+  background: #61adec;
 }
 
 #surahList li.about {
@@ -71,19 +109,35 @@ header {
   padding: 10px;
 }
 
-/* MOBILE FULL SCREEN */
+/* PDF canvas mobile fix */
+#pdfViewer canvas {
+  max-width: 100%;
+  height: auto !important;
+  display: block;
+  margin: 15px auto;
+}
+
+/* MOBILE RESPONSIVE */
 @media (max-width: 768px) {
-  header {
-    padding: 12px;
+  #mainTitle {
+    font-size: 1.3rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .description {
+    font-size: 0.75rem;
   }
 
   #pdfViewer {
     max-width: 100%;
-    padding: 5px;
+    padding: 6px;
   }
 }
 
-/* Footer */
+/* FOOTER */
 footer {
   background: #e1e1e1;
   text-align: center;
