@@ -1,12 +1,21 @@
+/**************************************
+ * PDF.js WORKER
+ **************************************/
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
+/**************************************
+ * DOM
+ **************************************/
 const listSection = document.getElementById("listSection");
 const viewerSection = document.getElementById("viewerSection");
 const surahListEl = document.getElementById("surahList");
 const pdfViewer = document.getElementById("pdfViewer");
 const backBtn = document.getElementById("backBtn");
 
+/**************************************
+ * SURAHS (114) + ABOUT
+ **************************************/
 const surahs = [
   { name: "About Adfar", type: "about", pdf: "Data/About.pdf" },
 
@@ -26,7 +35,9 @@ const surahs = [
 ];
 
 
-/* RENDER LIST */
+/**************************************
+ * RENDER LIST
+ **************************************/
 surahs.forEach(item => {
   const li = document.createElement("li");
 
@@ -42,7 +53,9 @@ surahs.forEach(item => {
   surahListEl.appendChild(li);
 });
 
-/* OPEN PDF */
+/**************************************
+ * OPEN VIEWER
+ **************************************/
 function openPDF(pdfPath) {
   listSection.style.display = "none";
   viewerSection.style.display = "block";
@@ -53,30 +66,54 @@ function openPDF(pdfPath) {
     return;
   }
 
+  renderPDF(pdfPath);
+}
+
+/**************************************
+ * RENDER PDF (RESPONSIVE + SHARP)
+ **************************************/
+function renderPDF(pdfPath) {
   pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
     for (let p = 1; p <= pdf.numPages; p++) {
       pdf.getPage(p).then(page => {
         const containerWidth = pdfViewer.clientWidth;
-        const unscaled = page.getViewport({ scale: 1 });
-        const scale = containerWidth / unscaled.width;
+
+        const unscaledViewport = page.getViewport({ scale: 1 });
+        const scale = containerWidth / unscaledViewport.width;
 
         const viewport = page.getViewport({ scale });
+
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.floor(viewport.width * dpr);
+        canvas.height = Math.floor(viewport.height * dpr);
+        canvas.style.width = `${viewport.width}px`;
+        canvas.style.height = `${viewport.height}px`;
+
+        const transform = dpr !== 1
+          ? [dpr, 0, 0, dpr, 0, 0]
+          : null;
 
         pdfViewer.appendChild(canvas);
-        page.render({ canvasContext: ctx, viewport });
+
+        page.render({
+          canvasContext: ctx,
+          viewport,
+          transform
+        });
       });
     }
   });
 }
 
-/* BACK */
+/**************************************
+ * BACK
+ **************************************/
 backBtn.onclick = () => {
   viewerSection.style.display = "none";
   listSection.style.display = "block";
   pdfViewer.innerHTML = "";
 };
+
