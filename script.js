@@ -46,7 +46,12 @@ surahs.forEach(item => {
     li.onclick = () => openPDF("");
   } else {
     li.textContent = item.name;
-    li.classList.add("about");
+    
+    // Only add 'about' class if it is specifically the about item
+    if (item.type === "about") {
+      li.classList.add("about");
+    }
+    
     li.onclick = () => openPDF(item.pdf);
   }
 
@@ -86,15 +91,15 @@ function renderPDF(pdfPath) {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        const dpr = window.devicePixelRatio || 1;
+        // Enhance quality: Use specific high DPR or device's DPR, whichever is higher (min 2.0 for sharpness)
+        const dpr = Math.max(window.devicePixelRatio || 1, 2.5); 
+        
         canvas.width = Math.floor(viewport.width * dpr);
         canvas.height = Math.floor(viewport.height * dpr);
         canvas.style.width = `${viewport.width}px`;
         canvas.style.height = `${viewport.height}px`;
 
-        const transform = dpr !== 1
-          ? [dpr, 0, 0, dpr, 0, 0]
-          : null;
+        const transform = [dpr, 0, 0, dpr, 0, 0];
 
         pdfViewer.appendChild(canvas);
 
@@ -116,4 +121,3 @@ backBtn.onclick = () => {
   listSection.style.display = "block";
   pdfViewer.innerHTML = "";
 };
-
