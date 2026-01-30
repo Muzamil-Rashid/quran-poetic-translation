@@ -67,16 +67,18 @@ header {
 #surahList li {
   padding: 14px;
   margin-bottom: 10px;
-  background: #09fd67;
-  border-radius: 6px;
+  background: #05903a;
+  border-radius: 20px;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #ddd;
+  border: 2px solid #090303;
+  font-weight: 600;
+  color: #f4f5f2;
 }
 
 #surahList li.about {
-  background: #38b6ff; /* Distinct Blue Color for About */
-  border: 2px solid #0056b3;
+  background: #c3a006; /* Distinct Blue Color for About */
+  border: 2px solid #010407;
   color: #fff; /* White text for better contrast */
   font-weight: 700;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Slight elevation */
