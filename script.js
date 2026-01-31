@@ -17,7 +17,7 @@ const backBtn = document.getElementById("backBtn");
  * SURAHS (114) + ABOUT
  **************************************/
 const surahs = [
-  { name: "About Adfar", type: "about", pdf: "data/About this book.pdf"},
+  { name: "About Adfar", type: "about", pdf: "data/about-this-book.pdf"},
 
   { name: "Surah Al-Fatiha", pdf: "pdfs/surahs/al-fatiha.pdf" },
   { name: "Surah Al-Baqarah", pdf: "pdfs/surahs/al-baqrah.pdf" },
@@ -121,6 +121,7 @@ backBtn.onclick = () => {
   listSection.style.display = "block";
   pdfViewer.innerHTML = "";
 };
+
 
 
 
