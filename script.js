@@ -20,7 +20,7 @@ const surahs = [
   { name: "About this Book ", type: "about", pdf: "data/about-this-book.pdf"},
   { name : "About Adfar", type: "about", pdf:""},
 
-  { name: "Surah Al-Fatiha", pdf: "pdfs/surahs/al-fatiha.pdf" },
+  { name: "Surah Al-Fatiha", pdf: "data/al-fatiha[1].pdf" },
   { name: "Surah Al-Baqarah", pdf: "pdfs/surahs/al-baqrah.pdf" },
   { name: "Surah Aal-e-Imran", pdf: "pdfs/surahs/aal-imran.pdf" },
   { name: "Surah An-Nisa", pdf: "pdfs/surahs/an-nisa.pdf" },
@@ -122,6 +122,7 @@ backBtn.onclick = () => {
   listSection.style.display = "block";
   pdfViewer.innerHTML = "";
 };
+
 
 
 
