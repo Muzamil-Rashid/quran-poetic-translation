@@ -21,17 +21,43 @@ const surahs = [
   { name : "About Adfar", type: "about", pdf:""},
 
   { name: "Surah Al-Fatiha", pdf: "data/al-fatiha[1].pdf" },
-  { name: "Surah Al-Baqarah", pdf: "pdfs/surahs/al-baqrah.pdf" },
-  { name: "Surah Aal-e-Imran", pdf: "pdfs/surahs/aal-imran.pdf" },
-  { name: "Surah An-Nisa", pdf: "pdfs/surahs/an-nisa.pdf" },
-  { name: "Surah Al-Ma'idah", pdf: "pdfs/surahs/al-maidah.pdf" },
-  { name: "Surah Al-An'am", pdf: "pdfs/surahs/al-anam.pdf" },
-  { name: "Surah Al-A'raf", pdf: "pdfs/surahs/al-araf.pdf" },
-  { name: "Surah Al-Anfal", pdf: "pdfs/surahs/al-anfal.pdf" },
-  { name: "Surah At-Tawbah", pdf: "pdfs/surahs/at-tawbah.pdf" },
-  { name: "Surah Yunus", pdf: "pdfs/surahs/yunus.pdf" },
-  { name: "Surah Hud", pdf: "pdfs/surahs/hud.pdf" },
-  { name: "Surah Yusuf", pdf: "pdfs/surahs/yusuf.pdf" }
+  { name: "Surah An-Nas", pdf: "" },
+  { name: "Surah Al-Falaq", pdf: "" },
+  { name: "Surah Al-Ikhlas", pdf: "" },
+  { name: "Surah Al-Masad", pdf: "" },
+  { name: "Surah An-Nasr", pdf: "" },
+  { name: "Surah Al-Kafirun", pdf: "" },
+  { name: "Surah Al-Kawthar", pdf: "" },
+  { name: "Surah Al-Ma'un", pdf: "" },
+  { name: "Surah Quraish", pdf: "" },
+  { name: "Surah Al-Fil", pdf: "" },
+  { name: "Surah Al-Humazah", pdf: "" },
+  { name: "Surah Al-Asr", pdf: "" },
+  { name: "Surah At-Takathur", pdf: "" },
+  { name: "Surah Al-Qari'ah", pdf: "" },
+  { name: "Surah Al-Adiyat", pdf: "" },
+  { name: "Surah Az-Zalzalah", pdf: "" },
+  { name: "Surah Al-Bayyinah", pdf: "" },
+  { name: "Surah Al-Qadr", pdf: "" },
+  { name: "Surah Al-Alaq", pdf: "" },
+  { name: "Surah At-Tin", pdf: "" },
+  { name: "Surah Ash-Sharh", pdf: "" },
+  { name: "Surah Ad-Duha", pdf: "" },
+  { name: "Surah Al-Layl", pdf: "" },
+  { name: "Surah Ash-Shams", pdf: "" },
+  { name: "Surah Al-Balad", pdf: "" },
+  { name: "Surah Al-Fajr", pdf: "" },
+  { name: "Surah Al-Ghashiyah", pdf: "" },
+  { name: "Surah Al-A'la", pdf: "" },
+  { name: "Surah At-Tariq", pdf: "" },
+  { name: "Surah Al-Buruj", pdf: "" },
+  { name: "Surah Al-Inshiqaq", pdf: "" },
+  { name: "Surah Al-Mutaffifin", pdf: "" },
+  { name: "Surah Al-Infitar", pdf: "" },
+  { name: "Surah At-Takwir", pdf: "" },
+  { name: "Surah Abasa", pdf: "" },
+  { name: "Surah An-Nazi'at", pdf: "" },
+  { name: "Surah An-Naba", pdf: "" }
   // 👉 baaki surahs isi pattern pe add karte jao
 ];
 
@@ -122,6 +148,7 @@ backBtn.onclick = () => {
   listSection.style.display = "block";
   pdfViewer.innerHTML = "";
 };
+
 
 
 
