@@ -21,7 +21,7 @@ const surahs = [
   { name : "About Adfar", type: "about", pdf:""},
   
   { name: "Surah An-Naba", pdf: "data/an-naba.pdf" },
-  { name: "Surah An-Nazi'at", pdf: "" },
+  { name: "Surah An-Nazi'at", pdf: "data/an-naba.pdf" },
   { name: "Surah Abasa", pdf: "" },
   { name: "Surah At-Takwir", pdf: "" },
   { name: "Surah Al-Infitar", pdf: "" },
@@ -146,6 +146,7 @@ backBtn.onclick = () => {
   listSection.style.display = "block";
   pdfViewer.innerHTML = "";
 };
+
 
 
 
