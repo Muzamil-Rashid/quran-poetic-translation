@@ -54,19 +54,19 @@ header {
   min-height: calc(100vh - 170px);
 }
 
-/* LIST */
-#listSection {
-  max-width: 520px;
-  margin: 40px auto;
-}
-
+/* 1. List container ko flex banayein taaki items side-by-side aa sakein */
 #surahList {
   list-style: none;
+  display: flex;
+  flex-wrap: wrap; /* Ye zaroori hai taaki baki Surahs niche chali jayein */
+  gap: 10px;      /* Items ke beech ka gap */
+  justify-content: space-between; /* Dono about items ke beech space ke liye */
 }
 
+/* 2. Baki saari Surahs ko full width (100%) rakhein */
 #surahList li {
+  width: 100%; /* Default 100% width */
   padding: 14px;
-  margin-bottom: 10px;
   background: #05903a;
   border-radius: 20px;
   text-align: center;
@@ -76,12 +76,15 @@ header {
   color: #f4f5f2;
 }
 
+/* 3. "About" items ko 50% width dein (minus gap) */
 #surahList li.about {
-  background: #c3a006; /* Distinct Blue Color for About */
+  width: calc(50% - 5px); /* Isse dono ek line mein aa jayenge */
+  margin-bottom: 10px;
+  background: #c3a006; 
   border: 2px solid #010407;
-  color: #fff; /* White text for better contrast */
+  color: #fff;
   font-weight: 700;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Slight elevation */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 /* VIEWER */
@@ -140,3 +143,4 @@ footer {
   padding: 8px;
   font-size: 0.85rem;
 }
+
