@@ -18,7 +18,7 @@ const backBtn = document.getElementById("backBtn");
  **************************************/
 const surahs = [
   { name: "About this Book ", type: "about", pdf: "data/about-this-book.pdf"},
-  { name : "About Adfar", type: "about", pdf:""},
+  { name : "About Adfar", type: "about", pdf:"data/about -adfar.pdf"},
 
   { name: "Surah Fatiha", pdf: "data/al-fatiha  (1).pdf" },
   { name: "Surah An-Naba", pdf: "data/an-naba.pdf" },
@@ -147,6 +147,7 @@ backBtn.onclick = () => {
   listSection.style.display = "block";
   pdfViewer.innerHTML = "";
 };
+
 
 
 
