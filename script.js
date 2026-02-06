@@ -25,7 +25,7 @@ const surahs = [
   { name: "Surah An-Nazi'at", pdf: "data/al-naziat .pdf" },
   { name: "Surah Abasa", pdf: "data/al-abasa.pdf" },
   { name: "Surah At-Takwir", pdf: "data/at-takwir.pdf" },
-  { name: "Surah Al-Infitar", pdf: "" },
+  { name: "Surah Al-Infitar", pdf: "data/al-infitar.pdf" },
   { name: "Surah Al-Mutaffifin", pdf: "data/al-mutaffifin.pdf" },
   { name: "Surah Al-Inshiqaq", pdf: "data/al-inshiqaq.pdf" },
   { name: "Surah Al-Buruj", pdf: "data/al-buruj.pdf" },
@@ -147,6 +147,7 @@ backBtn.onclick = () => {
   listSection.style.display = "block";
   pdfViewer.innerHTML = "";
 };
+
 
 
 
