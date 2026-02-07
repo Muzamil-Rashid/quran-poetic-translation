@@ -149,6 +149,14 @@ backBtn.onclick = () => {
 };
 
 
+// control default back
+window.history.pushState(null, null, window.location.href);
+
+window.onpopstate = function () {
+    window.location.href = "https://kanz-e-adfar.vercel.app/"; 
+};
+
+
 
 
 
