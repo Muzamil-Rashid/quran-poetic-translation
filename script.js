@@ -19,7 +19,7 @@ const backBtn = document.getElementById("backBtn");
 const surahs = [
   { name: "About this Book ", type: "about", pdf: "data/about-this-book.pdf"},
   { name : "About Adfar", type: "about", pdf:"data/about -adfar.pdf"},
-  { name: "Rhyme", type: "rhyme", pdf: "data/rhyme.pdf" }, /* <-- NEW RHYME ITEM */
+  { name: "Rhyme", type: "rhyme", pdf: "data/papa's rhyme.pdf" }, /* <-- NEW RHYME ITEM */
 
   { name: "Surah Fatiha", pdf: "data/al-fatiha  (1).pdf" },
   { name: "Surah An-Naba", pdf: "data/an-naba.pdf" },
@@ -160,3 +160,4 @@ window.history.pushState(null, null, window.location.href);
 window.onpopstate = function () {
     window.location.href = "https://kanz-e-adfar.vercel.app/"; 
 };
+
