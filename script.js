@@ -14,11 +14,12 @@ const pdfViewer = document.getElementById("pdfViewer");
 const backBtn = document.getElementById("backBtn");
 
 /**************************************
- * SURAHS (114) + ABOUT
+ * SURAHS (114) + ABOUT + RHYME
  **************************************/
 const surahs = [
   { name: "About this Book ", type: "about", pdf: "data/about-this-book.pdf"},
   { name : "About Adfar", type: "about", pdf:"data/about -adfar.pdf"},
+  { name: "Rhyme", type: "rhyme", pdf: "data/rhyme.pdf" }, /* <-- NEW RHYME ITEM */
 
   { name: "Surah Fatiha", pdf: "data/al-fatiha  (1).pdf" },
   { name: "Surah An-Naba", pdf: "data/an-naba.pdf" },
@@ -73,9 +74,13 @@ surahs.forEach(item => {
   } else {
     li.textContent = item.name;
     
-    // Only add 'about' class if it is specifically the about item
+    // Add 'about' class for About buttons
     if (item.type === "about") {
       li.classList.add("about");
+    }
+    // Add 'rhyme' class for Rhyme button (Taaki CSS width adjust kare)
+    else if (item.type === "rhyme") {
+      li.classList.add("rhyme");
     }
     
     li.onclick = () => openPDF(item.pdf);
@@ -117,7 +122,7 @@ function renderPDF(pdfPath) {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        // Enhance quality: Use specific high DPR or device's DPR, whichever is higher (min 2.0 for sharpness)
+        // Enhance quality
         const dpr = Math.max(window.devicePixelRatio || 1, 2.5); 
         
         canvas.width = Math.floor(viewport.width * dpr);
@@ -155,17 +160,3 @@ window.history.pushState(null, null, window.location.href);
 window.onpopstate = function () {
     window.location.href = "https://kanz-e-adfar.vercel.app/"; 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
