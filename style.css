@@ -91,15 +91,16 @@ header {
   color: #fff;
   font-weight: 700;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  
-  /* Thoda padding kam kiya taaki text fit ho jaye */
   padding: 12px 5px; 
-  font-size: 0.9rem; /* Font thoda adjust kiya space ke liye */
+  font-size: 0.9rem;
   
-  /* Text centering vertically and horizontally */
+
   display: flex;
   align-items: center;
   justify-content: center;
+}
+#surahList li.rhyme {
+  background: #1d4e89; 
 }
 
 /* VIEWER */
@@ -164,3 +165,4 @@ footer {
   padding: 8px;
   font-size: 0.85rem;
 }
+
