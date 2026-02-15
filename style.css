@@ -6,7 +6,7 @@
 }
 
 body {
-  /* TODO: USER - Replace with your actual image path, e.g., 'images/bg.jpg' */
+  /* TODO: USER - Replace with your actual image path */
   background: url("https://i.ibb.co/FqWRTbXM/promo25-milky-way-559641-1280.jpg") no-repeat center center fixed;
   background-size: cover;
   color: #222;
@@ -25,12 +25,10 @@ body {
 /* Back Button (Small, Left) */
 .list-back-btn {
   flex: 0 0 auto;
-  /* Don't grow, don't shrink */
   width: auto;
   min-width: 60px;
   padding: 10px 16px;
   font-size: 1.2rem;
-  /* Larger arrow */
   background-color: #4a4a4a;
   color: #fff;
   border: none;
@@ -40,22 +38,17 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0;
-  /* Override previous margin */
 }
 
 .list-back-btn:hover {
   background-color: #333;
 }
 
-/* About Button (Fills remaining space) */
-/* Targeted via JS class or specific selector if necessary */
+/* About Button */
 .list-header .about {
   flex: 1;
   margin-bottom: 0 !important;
-  /* Override li margin */
-  /* Re-apply button-like styles if it's an li */
   display: flex;
-  /* Ensure text centering */
   align-items: center;
   justify-content: center;
 }
@@ -164,7 +157,7 @@ header {
   cursor: pointer;
   transition: transform 0.3s;
   background: transparent;
-  color:#fff
+  color: #fff;
 }
 
 .book-card:hover {
@@ -185,7 +178,6 @@ header {
   position: relative;
 }
 
-/* Optional: Add a subtle texture/gradient if image is missing or loading */
 .book-cover:empty {
   background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
 }
@@ -197,16 +189,24 @@ header {
   display: block;
 }
 
-.book-title {
+/* --- YAHAN CHANGE KIYA HAI --- */
+/* Book Names ko White kar diya hai */
+.book-title, 
+.book-card h3 { 
   margin-top: 15px;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #fff;
+  color: #ffffff !important; /* Force White Color */
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-/* 1. List container setup */
+/* Description text niche wala bhi white rahe */
+.book-card p {
+  color: #eeeeee;
+}
+
+/* List container setup */
 #surahList {
   margin-top: 25px;
   padding: 0 10px;
@@ -214,11 +214,8 @@ header {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  /* Items ke beech ka gap */
-  /* justify-content: space-between; hata diya hai taaki gap property handle kare */
 }
 
-/* 2. Baki saari Surahs ko full width (100%) rakhein */
 #surahList li {
   width: 100%;
   padding: 14px;
@@ -231,12 +228,8 @@ header {
   color: #f4f5f2;
 }
 
-/* --- YAHAN CHANGE KIYA HAI --- */
-/* 3. "About" aur "Rhyme" items ko 33% width di hai taaki 3 ek line mein aayen */
-/* Note: Jab aap JS mein Rhyme button banayenge, usse class="rhyme" ya class="about" dena */
 #surahList li.about,
 #surahList li.rhyme {
-  /* Calculation: (100% width - 2 gaps of 10px) / 3 items */
   width: calc((100% - 20px) / 3);
   margin-bottom: 10px;
   background: #c3a006;
@@ -246,8 +239,6 @@ header {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 12px 5px;
   font-size: 0.9rem;
-
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -307,7 +298,6 @@ header {
     padding: 6px;
   }
 
-  /* Agar mobile pe bohot chhota dikhe, toh font size thoda aur adjust kar sakte hain */
   #surahList li.about,
   #surahList li.rhyme {
     font-size: 0.8rem;
@@ -322,10 +312,3 @@ footer {
   padding: 8px;
   font-size: 0.85rem;
 }
-
-
-
-
-
-
-
