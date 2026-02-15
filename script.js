@@ -65,7 +65,6 @@ const ammaSurahs = [
 /**************************************
  * DATA: SADAYE SIAM (Placeholder)
  **************************************/
-// Placeholder list of 24 items - Manually defined array for user customization
 const sadayeSiamList = [
   { name: "دل سی اندر چم گلشنک گلزار مزمل", pdf: "data/دل سی اندر چم گلشنک گلزار مزمل.pdf" },
   { name: "چم کراؤ صبحکہ  واوہ پوشن از تمنا دراؤ", pdf: "data/چم کراؤ صبحکہ  واوہ پوشن از تمنا دراؤ .pdf" },
@@ -111,6 +110,9 @@ function showList(type) {
   listSection.style.display = "block";
   viewerSection.style.display = "none";
 
+  // ADDED: Push state for Back Button
+  history.pushState({ view: 'list', type: type }, null, "");
+
   if (type === 'amma') {
     renderAmmaList();
     currentView = "list-amma";
@@ -128,6 +130,9 @@ function openPDF(pdfPath) {
   if (currentView === "home") {
     lastListView = "home"; // So back button goes to home
   }
+
+  // ADDED: Push state for Back Button
+  history.pushState({ view: 'viewer' }, null, "");
 
   homeSection.style.display = "none";
   listSection.style.display = "none";
@@ -159,28 +164,11 @@ function renderAmmaList() {
   backToHomeBtn.innerHTML = "←"; // Simple arrow
   backToHomeBtn.className = "list-back-btn";
   backToHomeBtn.title = "Back to Home";
-  backToHomeBtn.onclick = () => showHome();
+  backToHomeBtn.onclick = () => {
+    // Manually going back mimics browser back
+    history.back();
+  };
   headerDiv.appendChild(backToHomeBtn);
-
-  // About Button (Fills Rest)
-  const aboutBtn = document.createElement("div"); // Using div to act like button/li
-  aboutBtn.textContent = "About this Book";
-  aboutBtn.className = "about";
-  // Copy styles from LI to make it look consistent, or rely on .about class
-  // Since 'about' class in CSS targets #surahList li.about, we need to ensure this div gets same style
-  // Or better, just style .list-header .about in CSS to match.
-  // Let's add the click handler.
-  aboutBtn.onclick = () => openPDF("data/about-this-book.pdf");
-
-  // Apply visual styles to match existing List Items
-  // Since we pulled it out of the UL, we need to apply the li styles manually or use a helper class
-  // Let's rely on the CSS update we made to `.list-header .about`
-  // We also need base styles: background, border, etc.
-  // Actually, let's keep it simple: Make 'aboutBtn' an LI? No, UL cannot be inside a DIV inside UL??
-  // Wait, surahListEl is the UL. We usually append LIs to it. 
-  // User wants them in ONE ROW. Standard UL/LI cannot do flex row easily mixed with flex wrap items unless we structure carefully.
-  // Hack: We will inject the 'headerDiv' BEFORE the UL in the listSection, OR as the first LI?
-  // If we make the first LI a flex container, that works.
 
   const headerLi = document.createElement("li");
   headerLi.style.background = "transparent";
@@ -188,21 +176,16 @@ function renderAmmaList() {
   headerLi.style.padding = "0";
   headerLi.style.boxShadow = "none";
   headerLi.style.cursor = "default";
-  headerLi.className = "list-header-li"; // Helper class if needed
-  headerLi.style.width = "100%"; // Full width to contain the row
-  headerLi.style.display = "block"; // Override flex if inherited issues
+  headerLi.className = "list-header-li"; 
+  headerLi.style.width = "100%"; 
+  headerLi.style.display = "block"; 
 
   headerLi.appendChild(headerDiv);
 
-  // Re-add About button logic
-  // Since we are inside the headerDiv, let's create the About Element
+  // About Button
   const aboutEl = document.createElement("div");
   aboutEl.textContent = "About this Book";
-  aboutEl.className = "about"; // Will pick up the yellow style from CSS
-  // We need to ensure it looks like a button. 
-  // The CSS `#surahList li.about` targets LI. We might need to adjust CSS to `#surahList .about` or duplicate styles.
-  // Let's assume we adjusted CSS or we manually add the 'li' classes.
-  // Actually, easiest way: 
+  aboutEl.className = "about"; 
   aboutEl.style.cssText = "background: #c3a006; border: 2px solid #010407; color: #fff; font-weight: 700; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 12px 5px; font-size: 0.9rem; border-radius: 20px; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center;";
 
   aboutEl.onclick = () => openPDF("data/about-this-book.pdf");
@@ -235,9 +218,10 @@ function renderSadayeList() {
   backToHomeBtn.innerHTML = "←";
   backToHomeBtn.className = "list-back-btn";
   backToHomeBtn.title = "Back to Home";
-  backToHomeBtn.onclick = () => showHome();
+  backToHomeBtn.onclick = () => {
+     history.back();
+  };
 
-  // Wrap in div to avoid full width stretching if we want it left aligned
   const wrapper = document.createElement("div");
   wrapper.style.display = "flex";
   wrapper.style.justifyContent = "flex-start";
@@ -251,7 +235,6 @@ function renderSadayeList() {
   sadayeSiamList.forEach(item => {
     const li = document.createElement("li");
     li.textContent = item.name;
-    // li.classList.add("sadaye-item"); 
     li.onclick = () => openPDF(item.pdf);
     surahListEl.appendChild(li);
   });
@@ -275,7 +258,6 @@ function renderPDF(pdfPath) {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        // Enhance quality
         const dpr = Math.max(window.devicePixelRatio || 1, 2.5);
 
         canvas.width = Math.floor(viewport.width * dpr);
@@ -301,32 +283,49 @@ function renderPDF(pdfPath) {
  * BACK BUTTON LOGIC
  **************************************/
 backBtn.onclick = () => {
-  if (currentView === "viewer") {
-    // Go back to the specific list we came from, or Home
-    if (lastListView === "home") {
-      showHome();
-    } else if (lastListView === "list-amma") {
-      showList("amma");
-    } else if (lastListView === "list-sadaye") {
-      showList("sadaye");
-    }
-  } else {
-    // Default fallback
-    showHome();
-  }
+  // Use history.back() to utilize the unified back button logic
+  history.back();
 };
 
 
 // Initial Load
 showHome();
+// Set initial state for Home
+history.replaceState({ view: 'home' }, null, "");
 
-// Browser Back Button handling
-window.onpopstate = function () {
-  // If we want to handle browser back button to navigate within app:
+/**************************************
+ * BROWSER/MOBILE BACK BUTTON HANDLING
+ **************************************/
+window.onpopstate = function (event) {
+  // If we are currently in Viewer
   if (currentView === "viewer") {
-    backBtn.click();
-  } else if (currentView.startsWith("list-")) {
-    showHome();
+    // Hide Viewer, Show Last List (or Home)
+    viewerSection.style.display = "none";
+    pdfViewer.innerHTML = "";
+    
+    if (lastListView === "list-amma") {
+      listSection.style.display = "block";
+      renderAmmaList(); 
+      currentView = "list-amma";
+    } else if (lastListView === "list-sadaye") {
+      listSection.style.display = "block";
+      renderSadayeList(); 
+      currentView = "list-sadaye";
+    } else {
+      // If we came from Home directly (About Adfar / Rhyme)
+      homeSection.style.display = "block";
+      currentView = "home";
+    }
+  } 
+  // If we are currently in a List
+  else if (currentView.startsWith("list-")) {
+    // Hide List, Show Home
+    listSection.style.display = "none";
+    homeSection.style.display = "block";
+    currentView = "home";
+  } 
+  // If we are at Home
+  else {
+    // Let default browser behavior happen (Exit app / Close tab)
   }
 };
-
