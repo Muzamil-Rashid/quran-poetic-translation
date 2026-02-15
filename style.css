@@ -7,7 +7,7 @@
 
 body {
   /* TODO: USER - Replace with your actual image path */
-  background: url("https://i.ibb.co/FqWRTbXM/promo25-milky-way-559641-1280.jpg") no-repeat center center fixed;
+  background: url() no-repeat center center fixed;
   background-size: cover;
   color: #222;
 }
@@ -196,7 +196,7 @@ header {
   margin-top: 15px;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #ffffff !important; /* Force White Color */
+  color: #0a0a0a !important; /* Force White Color */
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -312,3 +312,4 @@ footer {
   padding: 8px;
   font-size: 0.85rem;
 }
+
