@@ -201,7 +201,7 @@ header {
   margin-top: 15px;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #222;
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -322,6 +322,7 @@ footer {
   padding: 8px;
   font-size: 0.85rem;
 }
+
 
 
 
