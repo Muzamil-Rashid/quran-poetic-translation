@@ -164,6 +164,7 @@ header {
   cursor: pointer;
   transition: transform 0.3s;
   background: transparent;
+  color:#fff
 }
 
 .book-card:hover {
@@ -321,6 +322,7 @@ footer {
   padding: 8px;
   font-size: 0.85rem;
 }
+
 
 
 
