@@ -7,7 +7,7 @@
 
 body {
   /* TODO: USER - Replace with your actual image path, e.g., 'images/bg.jpg' */
-  background: url() no-repeat center center fixed;
+  background: url("https://i.ibb.co/FqWRTbXM/promo25-milky-way-559641-1280.jpg") no-repeat center center fixed;
   background-size: cover;
   color: #222;
 }
@@ -321,6 +321,7 @@ footer {
   padding: 8px;
   font-size: 0.85rem;
 }
+
 
 
 
