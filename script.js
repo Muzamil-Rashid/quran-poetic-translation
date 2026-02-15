@@ -5,22 +5,23 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 /**************************************
- * DOM
+ * DOM ELEMENTS
  **************************************/
+const homeSection = document.getElementById("homeSection");
 const listSection = document.getElementById("listSection");
 const viewerSection = document.getElementById("viewerSection");
 const surahListEl = document.getElementById("surahList");
 const pdfViewer = document.getElementById("pdfViewer");
 const backBtn = document.getElementById("backBtn");
 
-/**************************************
- * SURAHS (114) + ABOUT + RHYME
- **************************************/
-const surahs = [
-  { name: "About this Book ", type: "about", pdf: "data/about-this-book.pdf"},
-  { name : "About Adfar", type: "about", pdf:"data/about -adfar.pdf"},
-  { name: "Rhyme", type: "rhyme", pdf: "data/papa's rhyme.pdf" }, /* <-- NEW RHYME ITEM */
+// State to track where "Back" should go
+let currentView = "home"; // 'home', 'list-amma', 'list-sadaye', 'viewer'
+let lastListView = "home"; // 'home', 'list-amma', 'list-sadaye'
 
+/**************************************
+ * DATA: AMMA PARA (Surahs)
+ **************************************/
+const ammaSurahs = [
   { name: "Surah Fatiha", pdf: "data/al-fatiha  (1).pdf" },
   { name: "Surah An-Naba", pdf: "data/an-naba.pdf" },
   { name: "Surah An-Nazi'at", pdf: "data/al-naziat .pdf" },
@@ -61,49 +62,201 @@ const surahs = [
   { name: "Surah An-Nas", pdf: "data/al-nas.pdf" }
 ];
 
+/**************************************
+ * DATA: SADAYE SIAM (Placeholder)
+ **************************************/
+// Placeholder list of 24 items - Manually defined array for user customization
+const sadayeSiamList = [
+  { name: "Sada-i-Siyam 1", pdf: "" },
+  { name: "Sada-i-Siyam 2", pdf: "" },
+  { name: "Sada-i-Siyam 3", pdf: "" },
+  { name: "Sada-i-Siyam 4", pdf: "" },
+  { name: "Sada-i-Siyam 5", pdf: "" },
+  { name: "Sada-i-Siyam 6", pdf: "" },
+  { name: "Sada-i-Siyam 7", pdf: "" },
+  { name: "Sada-i-Siyam 8", pdf: "" },
+  { name: "Sada-i-Siyam 9", pdf: "" },
+  { name: "Sada-i-Siyam 10", pdf: "" },
+  { name: "Sada-i-Siyam 11", pdf: "" },
+  { name: "Sada-i-Siyam 12", pdf: "" },
+  { name: "Sada-i-Siyam 13", pdf: "" },
+  { name: "Sada-i-Siyam 14", pdf: "" },
+  { name: "Sada-i-Siyam 15", pdf: "" },
+  { name: "Sada-i-Siyam 16", pdf: "" },
+  { name: "Sada-i-Siyam 17", pdf: "" },
+  { name: "Sada-i-Siyam 18", pdf: "" },
+  { name: "Sada-i-Siyam 19", pdf: "" },
+  { name: "Sada-i-Siyam 20", pdf: "" },
+  { name: "Sada-i-Siyam 21", pdf: "" },
+  { name: "Sada-i-Siyam 22", pdf: "" },
+  { name: "Sada-i-Siyam 23", pdf: "" },
+  { name: "Sada-i-Siyam 24", pdf: "" }
+];
+
 
 /**************************************
- * RENDER LIST
+ * NAVIGATION
  **************************************/
-surahs.forEach(item => {
-  const li = document.createElement("li");
 
-  if (typeof item === "string") {
-    li.textContent = "Surah " + item;
-    li.onclick = () => openPDF("");
-  } else {
-    li.textContent = item.name;
-    
-    // Add 'about' class for About buttons
-    if (item.type === "about") {
-      li.classList.add("about");
-    }
-    // Add 'rhyme' class for Rhyme button (Taaki CSS width adjust kare)
-    else if (item.type === "rhyme") {
-      li.classList.add("rhyme");
-    }
-    
-    li.onclick = () => openPDF(item.pdf);
+function showHome() {
+  homeSection.style.display = "block";
+  listSection.style.display = "none";
+  viewerSection.style.display = "none";
+  currentView = "home";
+  window.scrollTo(0, 0);
+}
+
+function showList(type) {
+  homeSection.style.display = "none";
+  listSection.style.display = "block";
+  viewerSection.style.display = "none";
+
+  if (type === 'amma') {
+    renderAmmaList();
+    currentView = "list-amma";
+    lastListView = "list-amma";
+  } else if (type === 'sadaye') {
+    renderSadayeList();
+    currentView = "list-sadaye";
+    lastListView = "list-sadaye";
+  }
+  window.scrollTo(0, 0);
+}
+
+function openPDF(pdfPath) {
+  // If opening directly from Home (About Adfar/Rhyme), set view accordingly
+  if (currentView === "home") {
+    lastListView = "home"; // So back button goes to home
   }
 
-  surahListEl.appendChild(li);
-});
-
-/**************************************
- * OPEN VIEWER
- **************************************/
-function openPDF(pdfPath) {
+  homeSection.style.display = "none";
   listSection.style.display = "none";
   viewerSection.style.display = "block";
+
+  currentView = "viewer";
   pdfViewer.innerHTML = "";
 
   if (!pdfPath) {
-    pdfViewer.innerHTML = "<p><strong>PDF will be available soon.</strong></p>";
+    pdfViewer.innerHTML = "<p style='text-align:center; padding: 20px;'><strong>PDF will be available soon.</strong></p>";
     return;
   }
 
   renderPDF(pdfPath);
 }
+
+/**************************************
+ * RENDER LISTS
+ **************************************/
+function renderAmmaList() {
+  surahListEl.innerHTML = "";
+
+  // 0. Create Header Layout (Back + About)
+  const headerDiv = document.createElement("div");
+  headerDiv.className = "list-header";
+
+  // Back Button (Small)
+  const backToHomeBtn = document.createElement("button");
+  backToHomeBtn.innerHTML = "←"; // Simple arrow
+  backToHomeBtn.className = "list-back-btn";
+  backToHomeBtn.title = "Back to Home";
+  backToHomeBtn.onclick = () => showHome();
+  headerDiv.appendChild(backToHomeBtn);
+
+  // About Button (Fills Rest)
+  const aboutBtn = document.createElement("div"); // Using div to act like button/li
+  aboutBtn.textContent = "About this Book";
+  aboutBtn.className = "about";
+  // Copy styles from LI to make it look consistent, or rely on .about class
+  // Since 'about' class in CSS targets #surahList li.about, we need to ensure this div gets same style
+  // Or better, just style .list-header .about in CSS to match.
+  // Let's add the click handler.
+  aboutBtn.onclick = () => openPDF("data/about-this-book.pdf");
+
+  // Apply visual styles to match existing List Items
+  // Since we pulled it out of the UL, we need to apply the li styles manually or use a helper class
+  // Let's rely on the CSS update we made to `.list-header .about`
+  // We also need base styles: background, border, etc.
+  // Actually, let's keep it simple: Make 'aboutBtn' an LI? No, UL cannot be inside a DIV inside UL??
+  // Wait, surahListEl is the UL. We usually append LIs to it. 
+  // User wants them in ONE ROW. Standard UL/LI cannot do flex row easily mixed with flex wrap items unless we structure carefully.
+  // Hack: We will inject the 'headerDiv' BEFORE the UL in the listSection, OR as the first LI?
+  // If we make the first LI a flex container, that works.
+
+  const headerLi = document.createElement("li");
+  headerLi.style.background = "transparent";
+  headerLi.style.border = "none";
+  headerLi.style.padding = "0";
+  headerLi.style.boxShadow = "none";
+  headerLi.style.cursor = "default";
+  headerLi.className = "list-header-li"; // Helper class if needed
+  headerLi.style.width = "100%"; // Full width to contain the row
+  headerLi.style.display = "block"; // Override flex if inherited issues
+
+  headerLi.appendChild(headerDiv);
+
+  // Re-add About button logic
+  // Since we are inside the headerDiv, let's create the About Element
+  const aboutEl = document.createElement("div");
+  aboutEl.textContent = "About this Book";
+  aboutEl.className = "about"; // Will pick up the yellow style from CSS
+  // We need to ensure it looks like a button. 
+  // The CSS `#surahList li.about` targets LI. We might need to adjust CSS to `#surahList .about` or duplicate styles.
+  // Let's assume we adjusted CSS or we manually add the 'li' classes.
+  // Actually, easiest way: 
+  aboutEl.style.cssText = "background: #c3a006; border: 2px solid #010407; color: #fff; font-weight: 700; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 12px 5px; font-size: 0.9rem; border-radius: 20px; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center;";
+
+  aboutEl.onclick = () => openPDF("data/about-this-book.pdf");
+  headerDiv.appendChild(aboutEl);
+
+  surahListEl.appendChild(headerLi);
+
+  // 2. Add Surahs
+  ammaSurahs.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item.name;
+    li.onclick = () => openPDF(item.pdf);
+    surahListEl.appendChild(li);
+  });
+}
+
+function renderSadayeList() {
+  surahListEl.innerHTML = "";
+
+  // 0. Create Header Layout (Back Button Only, Left Aligned)
+  const headerLi = document.createElement("li");
+  headerLi.style.background = "transparent";
+  headerLi.style.border = "none";
+  headerLi.style.padding = "0";
+  headerLi.style.boxShadow = "none";
+  headerLi.style.cursor = "default";
+  headerLi.style.width = "100%";
+
+  const backToHomeBtn = document.createElement("button");
+  backToHomeBtn.innerHTML = "←";
+  backToHomeBtn.className = "list-back-btn";
+  backToHomeBtn.title = "Back to Home";
+  backToHomeBtn.onclick = () => showHome();
+
+  // Wrap in div to avoid full width stretching if we want it left aligned
+  const wrapper = document.createElement("div");
+  wrapper.style.display = "flex";
+  wrapper.style.justifyContent = "flex-start";
+  wrapper.style.width = "100%";
+
+  wrapper.appendChild(backToHomeBtn);
+  headerLi.appendChild(wrapper);
+
+  surahListEl.appendChild(headerLi);
+
+  sadayeSiamList.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item.name;
+    // li.classList.add("sadaye-item"); 
+    li.onclick = () => openPDF(item.pdf);
+    surahListEl.appendChild(li);
+  });
+}
+
 
 /**************************************
  * RENDER PDF (RESPONSIVE + SHARP)
@@ -123,8 +276,8 @@ function renderPDF(pdfPath) {
         const ctx = canvas.getContext("2d");
 
         // Enhance quality
-        const dpr = Math.max(window.devicePixelRatio || 1, 2.5); 
-        
+        const dpr = Math.max(window.devicePixelRatio || 1, 2.5);
+
         canvas.width = Math.floor(viewport.width * dpr);
         canvas.height = Math.floor(viewport.height * dpr);
         canvas.style.width = `${viewport.width}px`;
@@ -145,19 +298,34 @@ function renderPDF(pdfPath) {
 }
 
 /**************************************
- * BACK
+ * BACK BUTTON LOGIC
  **************************************/
 backBtn.onclick = () => {
-  viewerSection.style.display = "none";
-  listSection.style.display = "block";
-  pdfViewer.innerHTML = "";
+  if (currentView === "viewer") {
+    // Go back to the specific list we came from, or Home
+    if (lastListView === "home") {
+      showHome();
+    } else if (lastListView === "list-amma") {
+      showList("amma");
+    } else if (lastListView === "list-sadaye") {
+      showList("sadaye");
+    }
+  } else {
+    // Default fallback
+    showHome();
+  }
 };
 
 
-// control default back
-window.history.pushState(null, null, window.location.href);
+// Initial Load
+showHome();
 
+// Browser Back Button handling
 window.onpopstate = function () {
-    window.location.href = "https://kanz-e-adfar.vercel.app/"; 
+  // If we want to handle browser back button to navigate within app:
+  if (currentView === "viewer") {
+    backBtn.click();
+  } else if (currentView.startsWith("list-")) {
+    showHome();
+  }
 };
-
