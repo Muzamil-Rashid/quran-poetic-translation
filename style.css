@@ -7,7 +7,7 @@
 
 body {
   /* TODO: USER - Replace with your actual image path, e.g., 'images/bg.jpg' */
-  background: url("Background Mosque Frame.jfif") no-repeat center center fixed;
+  background: url("https://pixabay.com/images/download/x-4752869_1920.jpg") no-repeat center center fixed;
   background-size: cover;
   color: #222;
 }
@@ -321,3 +321,4 @@ footer {
   padding: 8px;
   font-size: 0.85rem;
 }
+
