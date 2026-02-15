@@ -29,14 +29,48 @@
 
 <main id="app">
 
-  <!-- SURAH LIST -->
-  <section id="listSection">
+  <!-- HOME SECTION -->
+  <section id="homeSection">
+    
+    <!-- Top Buttons (About Adfar, Rhyme) -->
+    <div class="top-buttons">
+      <button class="home-btn about-adfar" onclick="openPDF('data/about -adfar.pdf')">About Adfar</button>
+      <button class="home-btn rhyme" onclick="openPDF('data/papa\'s rhyme.pdf')">Rhyme</button>
+    </div>
+
+    <!-- Book Cards -->
+    <div class="books-container">
+      
+      <!-- Book 1: Amma Para -->
+      <div class="book-card" onclick="showList('amma')">
+        <div class="book-cover">
+          <!-- TODO: USER - Replace with actual image URL -->
+          <img src="https://placehold.co/300x400?text=Amma+Para" alt="Amma Para Cover" id="img-amma">
+        </div>
+        <div class="book-title">Amma Para</div>
+      </div>
+
+      <!-- Book 2: Sadaye Siam -->
+      <div class="book-card" onclick="showList('sadaye')">
+        <div class="book-cover">
+           <!-- TODO: USER - Replace with actual image URL -->
+          <img src="https://placehold.co/300x400?text=Sadaye+Siam" alt="Sadaye Siam Cover" id="img-sadaye">
+        </div>
+        <div class="book-title">Sadaye Siyam</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SURAH LIST SECTION (Hidden by default) -->
+  <section id="listSection" style="display: none;">
+    <!-- "About This Book" will be injected here by JS when Amma Para is selected -->
     <ul id="surahList"></ul>
   </section>
 
-  <!-- PDF VIEWER -->
-  <section id="viewerSection">
-    <button id="backBtn">← Back to Surah List</button>
+  <!-- PDF VIEWER SECTION (Hidden by default) -->
+  <section id="viewerSection" style="display: none;">
+    <button id="backBtn">← Back</button>
     <div id="pdfViewer"></div>
   </section>
 
@@ -49,4 +83,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
