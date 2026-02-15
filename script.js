@@ -67,30 +67,30 @@ const ammaSurahs = [
  **************************************/
 // Placeholder list of 24 items - Manually defined array for user customization
 const sadayeSiamList = [
-  { name: "Sada-i-Siyam 1", pdf: "" },
-  { name: "Sada-i-Siyam 2", pdf: "" },
-  { name: "Sada-i-Siyam 3", pdf: "" },
-  { name: "Sada-i-Siyam 4", pdf: "" },
-  { name: "Sada-i-Siyam 5", pdf: "" },
-  { name: "Sada-i-Siyam 6", pdf: "" },
-  { name: "Sada-i-Siyam 7", pdf: "" },
-  { name: "Sada-i-Siyam 8", pdf: "" },
-  { name: "Sada-i-Siyam 9", pdf: "" },
-  { name: "Sada-i-Siyam 10", pdf: "" },
-  { name: "Sada-i-Siyam 11", pdf: "" },
-  { name: "Sada-i-Siyam 12", pdf: "" },
-  { name: "Sada-i-Siyam 13", pdf: "" },
-  { name: "Sada-i-Siyam 14", pdf: "" },
-  { name: "Sada-i-Siyam 15", pdf: "" },
-  { name: "Sada-i-Siyam 16", pdf: "" },
-  { name: "Sada-i-Siyam 17", pdf: "" },
-  { name: "Sada-i-Siyam 18", pdf: "" },
-  { name: "Sada-i-Siyam 19", pdf: "" },
-  { name: "Sada-i-Siyam 20", pdf: "" },
-  { name: "Sada-i-Siyam 21", pdf: "" },
-  { name: "Sada-i-Siyam 22", pdf: "" },
-  { name: "Sada-i-Siyam 23", pdf: "" },
-  { name: "Sada-i-Siyam 24", pdf: "" }
+  { name: "دل سی اندر چم گلشنک گلزار مزمل", pdf: "data/دل سی اندر چم گلشنک گلزار مزمل.pdf" },
+  { name: "چم کراؤ صبحکہ  واوہ پوشن از تمنا دراؤ", pdf: "data/چم کراؤ صبحکہ  واوہ پوشن از تمنا دراؤ .pdf" },
+  { name: "چھک ماہ رمضانک بہار", pdf: "data/چھک ماہ رمضانک بہار.pdf" },
+  { name: "ہوش دارہ گوش تھاؤ پوشن چھه کراؤ", pdf: "data/ہوش دارہ گوش تھاؤ پوشن چھه کراؤ.pdf" },
+  { name: "اسی لول برو لول برو ماہ رمضانس ", pdf: "data/اسی لول برو لول برو ماہ رمضانس .pdf" },
+  { name: "شاہ خیر الانعام السلام السلام", pdf: "data/شاہ خیر الانعام السلام السلام.pdf" },
+  { name: "مہ ماہ تمام جمال محمد", pdf: "data/مہ ماہ تمام جمال محمد.pdf" },
+  { name: "سوز ذاتن شوب سانی قدردانی چانی چھم", pdf: "data/سوز ذاتن شوب سانی قدردانی چانی چھم .pdf" },
+  { name: "یتھ منز چھہ رحمت سی پہر  وقت سحر وقت سحر", pdf: "data/یتھ منز چھہ رحمت سی پہر  وقت سحر وقت سحر.pdf" },
+  { name: "چُمم  ذرُن مشکل گژھُن چونُوی  جُدا", pdf: "data/چُمم  ذرُن مشکل گژھُن چونُوی  جُدا.pdf" },
+  { name: "رأضی  روزُن توہنہ روزہ دارن", pdf: "data/رأضی  روزُن توہنہ روزہ دارن.pdf" },
+  { name: "نیہ فُج تہ واوو تُل قدم", pdf: "data/نیہ فُج تہ واوو تُل قدم.pdf" },
+  { name: "لا الہ الا اللہ رب القاسم", pdf: "data/لا الہ الا اللہ رب القاسم.pdf" },
+  { name: "خاتون جنت فاطمہ رضی اللہ تعالی عنہ", pdf: "data/خاتون جنت فاطمہ رضی اللہ تعالی عنہ.pdf" },
+  { name: "توہُند سرتاج شہ دو جہان خدیجہ رضی اللہ تعالی عنہا", pdf: "data/توہُند سرتاج شہ دو جہان خدیجہ رضی اللہ تعالی عنہا.pdf" },
+  { name: "عائشہ (رضی اللہ تعالی عنہا) چھہ علمٔہ دفتر", pdf: "data/عائشہ (رضی اللہ تعالی عنہا) چھہ علمٔہ دفتر.pdf" },
+  { name: "نعت محمد ذاتہ نئی وون نعتہ کے ناوک قسم", pdf: "data/نعت محمد ذاتہ نئی وون نعتہ کے ناوک قسم.pdf" },
+  { name: "یا محمد رسول لول چون آؤ", pdf: "data/یا محمد رسول لول چون آؤ.pdf" },
+  { name: "ایف الله الله دمبدم پر", pdf: "data/ایف الله الله دمبدم پر.pdf" },
+  { name: "چُھس حَژد لَہ چُھس حَژد لَہ چُھم حَژَر", pdf: "data/چُھس حَژد لَہ چُھس حَژد لَہ چُھم حَژَر.pdf" },
+  { name: "صدا بوزُم مُد عا نیر یم گدا چُھسی یا رسول الله", pdf: "data/صدا بوزُم مُد عا نیر یم گدا چُھسی یا رسول الله.pdf" },
+  { name: "لَيلَةُ القدر اٰيةُ الفُرقان", pdf: "data/لَيلَةُ القدر اٰيةُ الفُرقان.pdf" },
+  { name: "اہے ماہ رمضان کے بہار", pdf: "data/اہے ماہ رمضان کے بہار (1).pdf" },
+  { name: "ولو نازنینو وندی زو بہ پادن", pdf: "data/ولو نازنینو وندی زو بہ پادن.pdf" }
 ];
 
 
@@ -329,3 +329,4 @@ window.onpopstate = function () {
     showHome();
   }
 };
+
