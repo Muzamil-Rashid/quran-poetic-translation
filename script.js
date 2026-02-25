@@ -15,8 +15,8 @@ const pdfViewer = document.getElementById("pdfViewer");
 const backBtn = document.getElementById("backBtn");
 
 // State to track where "Back" should go
-let currentView = "home"; // 'home', 'list-amma', 'list-sadaye', 'viewer'
-let lastListView = "home"; // 'home', 'list-amma', 'list-sadaye'
+let currentView = "home"; // 'home', 'list-amma', 'list-sadaye', 'list-kalam', 'viewer'
+let lastListView = "home"; // 'home', 'list-amma', 'list-sadaye', 'list-kalam'
 
 /**************************************
  * DATA: AMMA PARA (Surahs)
@@ -65,31 +65,40 @@ const ammaSurahs = [
 /**************************************
  * DATA: SADAYE SIAM (Placeholder)
  **************************************/
+// Placeholder list of 24 items - Manually defined array for user customization
 const sadayeSiamList = [
-  { name: "دل سی اندر چم گلشنک گلزار مزمل", pdf: "data/دل سی اندر چم گلشنک گلزار مزمل.pdf" },
-  { name: "چم کراؤ صبحکہ  واوہ پوشن از تمنا دراؤ", pdf: "data/چم کراؤ صبحکہ  واوہ پوشن از تمنا دراؤ .pdf" },
-  { name: "چھک ماہ رمضانک بہار", pdf: "data/چھک ماہ رمضانک بہار.pdf" },
-  { name: "ہوش دارہ گوش تھاؤ پوشن چھه کراؤ", pdf: "data/ہوش دارہ گوش تھاؤ پوشن چھه کراؤ.pdf" },
-  { name: "اسی لول برو لول برو ماہ رمضانس ", pdf: "data/اسی لول برو لول برو ماہ رمضانس .pdf" },
-  { name: "شاہ خیر الانعام السلام السلام", pdf: "data/شاہ خیر الانعام السلام السلام.pdf" },
-  { name: "مہ ماہ تمام جمال محمد", pdf: "data/مہ ماہ تمام جمال محمد.pdf" },
-  { name: "سوز ذاتن شوب سانی قدردانی چانی چھم", pdf: "data/سوز ذاتن شوب سانی قدردانی چانی چھم .pdf" },
-  { name: "یتھ منز چھہ رحمت سی پہر  وقت سحر وقت سحر", pdf: "data/یتھ منز چھہ رحمت سی پہر  وقت سحر وقت سحر.pdf" },
-  { name: "چُمم  ذرُن مشکل گژھُن چونُوی  جُدا", pdf: "data/چُمم  ذرُن مشکل گژھُن چونُوی  جُدا.pdf" },
-  { name: "رأضی  روزُن توہنہ روزہ دارن", pdf: "data/رأضی  روزُن توہنہ روزہ دارن.pdf" },
-  { name: "نیہ فُج تہ واوو تُل قدم", pdf: "data/نیہ فُج تہ واوو تُل قدم.pdf" },
-  { name: "لا الہ الا اللہ رب القاسم", pdf: "data/لا الہ الا اللہ رب القاسم.pdf" },
-  { name: "خاتون جنت فاطمہ رضی اللہ تعالی عنہ", pdf: "data/خاتون جنت فاطمہ رضی اللہ تعالی عنہ.pdf" },
-  { name: "توہُند سرتاج شہ دو جہان خدیجہ رضی اللہ تعالی عنہا", pdf: "data/توہُند سرتاج شہ دو جہان خدیجہ رضی اللہ تعالی عنہا.pdf" },
-  { name: "عائشہ (رضی اللہ تعالی عنہا) چھہ علمٔہ دفتر", pdf: "data/عائشہ (رضی اللہ تعالی عنہا) چھہ علمٔہ دفتر.pdf" },
-  { name: "نعت محمد ذاتہ نئی وون نعتہ کے ناوک قسم", pdf: "data/نعت محمد ذاتہ نئی وون نعتہ کے ناوک قسم.pdf" },
-  { name: "یا محمد رسول لول چون آؤ", pdf: "data/یا محمد رسول لول چون آؤ.pdf" },
-  { name: "ایف الله الله دمبدم پر", pdf: "data/ایف الله الله دمبدم پر.pdf" },
-  { name: "چُھس حَژد لَہ چُھس حَژد لَہ چُھم حَژَر", pdf: "data/چُھس حَژد لَہ چُھس حَژد لَہ چُھم حَژَر.pdf" },
-  { name: "صدا بوزُم مُد عا نیر یم گدا چُھسی یا رسول الله", pdf: "data/صدا بوزُم مُد عا نیر یم گدا چُھسی یا رسول الله.pdf" },
-  { name: "لَيلَةُ القدر اٰيةُ الفُرقان", pdf: "data/لَيلَةُ القدر اٰيةُ الفُرقان.pdf" },
-  { name: "اہے ماہ رمضان کے بہار", pdf: "data/اہے ماہ رمضان کے بہار (1).pdf" },
-  { name: "ولو نازنینو وندی زو بہ پادن", pdf: "data/ولو نازنینو وندی زو بہ پادن.pdf" }
+  { name: "Sada-i-Siyam 1", pdf: "" },
+  { name: "Sada-i-Siyam 2", pdf: "" },
+  { name: "Sada-i-Siyam 3", pdf: "" },
+  { name: "Sada-i-Siyam 4", pdf: "" },
+  { name: "Sada-i-Siyam 5", pdf: "" },
+  { name: "Sada-i-Siyam 6", pdf: "" },
+  { name: "Sada-i-Siyam 7", pdf: "" },
+  { name: "Sada-i-Siyam 8", pdf: "" },
+  { name: "Sada-i-Siyam 9", pdf: "" },
+  { name: "Sada-i-Siyam 10", pdf: "" },
+  { name: "Sada-i-Siyam 11", pdf: "" },
+  { name: "Sada-i-Siyam 12", pdf: "" },
+  { name: "Sada-i-Siyam 13", pdf: "" },
+  { name: "Sada-i-Siyam 14", pdf: "" },
+  { name: "Sada-i-Siyam 15", pdf: "" },
+  { name: "Sada-i-Siyam 16", pdf: "" },
+  { name: "Sada-i-Siyam 17", pdf: "" },
+  { name: "Sada-i-Siyam 18", pdf: "" },
+  { name: "Sada-i-Siyam 19", pdf: "" },
+  { name: "Sada-i-Siyam 20", pdf: "" },
+  { name: "Sada-i-Siyam 21", pdf: "" },
+  { name: "Sada-i-Siyam 22", pdf: "" },
+  { name: "Sada-i-Siyam 23", pdf: "" },
+  { name: "Sada-i-Siyam 24", pdf: "" }
+];
+
+/**************************************
+ * DATA: KALAM-E-ADFAR (New)
+ **************************************/
+// Initialised with 5 list items as requested
+const kalamList = [
+  { name: "Kalam Item 1", pdf: "" }
 ];
 
 
@@ -110,9 +119,6 @@ function showList(type) {
   listSection.style.display = "block";
   viewerSection.style.display = "none";
 
-  // ADDED: Push state for Back Button
-  history.pushState({ view: 'list', type: type }, null, "");
-
   if (type === 'amma') {
     renderAmmaList();
     currentView = "list-amma";
@@ -121,6 +127,10 @@ function showList(type) {
     renderSadayeList();
     currentView = "list-sadaye";
     lastListView = "list-sadaye";
+  } else if (type === 'kalam') {
+    renderKalamList();
+    currentView = "list-kalam";
+    lastListView = "list-kalam";
   }
   window.scrollTo(0, 0);
 }
@@ -130,9 +140,6 @@ function openPDF(pdfPath) {
   if (currentView === "home") {
     lastListView = "home"; // So back button goes to home
   }
-
-  // ADDED: Push state for Back Button
-  history.pushState({ view: 'viewer' }, null, "");
 
   homeSection.style.display = "none";
   listSection.style.display = "none";
@@ -164,11 +171,14 @@ function renderAmmaList() {
   backToHomeBtn.innerHTML = "←"; // Simple arrow
   backToHomeBtn.className = "list-back-btn";
   backToHomeBtn.title = "Back to Home";
-  backToHomeBtn.onclick = () => {
-    // Manually going back mimics browser back
-    history.back();
-  };
+  backToHomeBtn.onclick = () => showHome();
   headerDiv.appendChild(backToHomeBtn);
+
+  // About Button (Fills Rest)
+  const aboutBtn = document.createElement("div"); 
+  aboutBtn.textContent = "About this Book";
+  aboutBtn.className = "about";
+  aboutBtn.onclick = () => openPDF("data/about-this-book.pdf");
 
   const headerLi = document.createElement("li");
   headerLi.style.background = "transparent";
@@ -182,7 +192,7 @@ function renderAmmaList() {
 
   headerLi.appendChild(headerDiv);
 
-  // About Button
+  // About Element Styling manually to match constraints
   const aboutEl = document.createElement("div");
   aboutEl.textContent = "About this Book";
   aboutEl.className = "about"; 
@@ -218,10 +228,9 @@ function renderSadayeList() {
   backToHomeBtn.innerHTML = "←";
   backToHomeBtn.className = "list-back-btn";
   backToHomeBtn.title = "Back to Home";
-  backToHomeBtn.onclick = () => {
-     history.back();
-  };
+  backToHomeBtn.onclick = () => showHome();
 
+  // Wrap in div to avoid full width stretching if we want it left aligned
   const wrapper = document.createElement("div");
   wrapper.style.display = "flex";
   wrapper.style.justifyContent = "flex-start";
@@ -233,6 +242,43 @@ function renderSadayeList() {
   surahListEl.appendChild(headerLi);
 
   sadayeSiamList.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item.name;
+    li.onclick = () => openPDF(item.pdf);
+    surahListEl.appendChild(li);
+  });
+}
+
+function renderKalamList() {
+  surahListEl.innerHTML = "";
+
+  // 0. Create Header Layout (Back Button Only, similar to Sadaye)
+  const headerLi = document.createElement("li");
+  headerLi.style.background = "transparent";
+  headerLi.style.border = "none";
+  headerLi.style.padding = "0";
+  headerLi.style.boxShadow = "none";
+  headerLi.style.cursor = "default";
+  headerLi.style.width = "100%";
+
+  const backToHomeBtn = document.createElement("button");
+  backToHomeBtn.innerHTML = "←";
+  backToHomeBtn.className = "list-back-btn";
+  backToHomeBtn.title = "Back to Home";
+  backToHomeBtn.onclick = () => showHome();
+
+  const wrapper = document.createElement("div");
+  wrapper.style.display = "flex";
+  wrapper.style.justifyContent = "flex-start";
+  wrapper.style.width = "100%";
+
+  wrapper.appendChild(backToHomeBtn);
+  headerLi.appendChild(wrapper);
+
+  surahListEl.appendChild(headerLi);
+
+  // Add Kalam Items
+  kalamList.forEach(item => {
     const li = document.createElement("li");
     li.textContent = item.name;
     li.onclick = () => openPDF(item.pdf);
@@ -258,6 +304,7 @@ function renderPDF(pdfPath) {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
+        // Enhance quality
         const dpr = Math.max(window.devicePixelRatio || 1, 2.5);
 
         canvas.width = Math.floor(viewport.width * dpr);
@@ -283,49 +330,33 @@ function renderPDF(pdfPath) {
  * BACK BUTTON LOGIC
  **************************************/
 backBtn.onclick = () => {
-  // Use history.back() to utilize the unified back button logic
-  history.back();
+  if (currentView === "viewer") {
+    // Go back to the specific list we came from, or Home
+    if (lastListView === "home") {
+      showHome();
+    } else if (lastListView === "list-amma") {
+      showList("amma");
+    } else if (lastListView === "list-sadaye") {
+      showList("sadaye");
+    } else if (lastListView === "list-kalam") {
+      showList("kalam");
+    }
+  } else {
+    // Default fallback
+    showHome();
+  }
 };
 
 
 // Initial Load
 showHome();
-// Set initial state for Home
-history.replaceState({ view: 'home' }, null, "");
 
-/**************************************
- * BROWSER/MOBILE BACK BUTTON HANDLING
- **************************************/
-window.onpopstate = function (event) {
-  // If we are currently in Viewer
+// Browser Back Button handling
+window.onpopstate = function () {
+  // If we want to handle browser back button to navigate within app:
   if (currentView === "viewer") {
-    // Hide Viewer, Show Last List (or Home)
-    viewerSection.style.display = "none";
-    pdfViewer.innerHTML = "";
-    
-    if (lastListView === "list-amma") {
-      listSection.style.display = "block";
-      renderAmmaList(); 
-      currentView = "list-amma";
-    } else if (lastListView === "list-sadaye") {
-      listSection.style.display = "block";
-      renderSadayeList(); 
-      currentView = "list-sadaye";
-    } else {
-      // If we came from Home directly (About Adfar / Rhyme)
-      homeSection.style.display = "block";
-      currentView = "home";
-    }
-  } 
-  // If we are currently in a List
-  else if (currentView.startsWith("list-")) {
-    // Hide List, Show Home
-    listSection.style.display = "none";
-    homeSection.style.display = "block";
-    currentView = "home";
-  } 
-  // If we are at Home
-  else {
-    // Let default browser behavior happen (Exit app / Close tab)
+    backBtn.click();
+  } else if (currentView.startsWith("list-")) {
+    showHome();
   }
 };
