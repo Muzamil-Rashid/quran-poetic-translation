@@ -98,7 +98,8 @@ const sadayeSiamList = [
  **************************************/
 // Initialised with 5 list items as requested
 const kalamList = [
-  { name: "مول موج", pdf: "data/مول موج.pdf" }
+  { name: "مول موج", pdf: "data/مول موج.pdf" },
+  { name: "خلاصۂ قرآن", pdf: "" }
 ];
 
 
@@ -360,4 +361,5 @@ window.onpopstate = function () {
     showHome();
   }
 };
+
 
