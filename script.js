@@ -15,8 +15,8 @@ const pdfViewer = document.getElementById("pdfViewer");
 const backBtn = document.getElementById("backBtn");
 
 // State to track where "Back" should go
-let currentView = "home"; // 'home', 'list-amma', 'list-sadaye', 'list-kalam', 'viewer'
-let lastListView = "home"; // 'home', 'list-amma', 'list-sadaye', 'list-kalam'
+let currentView = "home"; // 'home', 'list-amma', 'list-sadaye', 'list-kalam', 'list-sadaye-e-kalam', 'viewer'
+let lastListView = "home"; // 'home', 'list-amma', 'list-sadaye', 'list-kalam', 'list-sadaye-e-kalam'
 
 /**************************************
  * DATA: AMMA PARA (Surahs)
@@ -96,10 +96,21 @@ const sadayeSiamList = [
 /**************************************
  * DATA: KALAM-E-ADFAR (New)
  **************************************/
-// Initialised with 5 list items as requested
+// Initialised with list items as requested
 const kalamList = [
   { name: "مول موج", pdf: "data/مول موج.pdf" },
   { name: "خلاصۂ قرآن", pdf: "" }
+];
+
+
+/**************************************
+ * DATA: Sadaye-e-kalum
+ **************************************/
+// Initialised with list items as requested
+const kalumList = [
+  { name: "Jurat", pdf: "data/Adobe Scan 27 Feb 2026.pdf" },
+  { name: "elim", pdf: "data/alim.pdf" },
+  { name: "Khush", pdf: "data/khush.pdf" }
 ];
 
 
@@ -361,5 +372,6 @@ window.onpopstate = function () {
     showHome();
   }
 };
+
 
 
