@@ -15,8 +15,8 @@ const pdfViewer = document.getElementById("pdfViewer");
 const backBtn = document.getElementById("backBtn");
 
 // State to track where "Back" should go
-let currentView = "home"; // 'home', 'list-amma', 'list-sadaye', 'list-kalam', 'list-sadaye-e-kalam', 'viewer'
-let lastListView = "home"; // 'home', 'list-amma', 'list-sadaye', 'list-kalam', 'list-sadaye-e-kalam'
+let currentView = "home"; 
+let lastListView = "home"; 
 
 /**************************************
  * DATA: AMMA PARA (Surahs)
@@ -63,9 +63,8 @@ const ammaSurahs = [
 ];
 
 /**************************************
- * DATA: SADAYE SIAM (Placeholder)
+ * DATA: SADAYE SIAM 
  **************************************/
-// Placeholder list of 24 items - Manually defined array for user customization
 const sadayeSiamList = [
   { name: "دل سی اندر چم گلشنک گلزار مزمل", pdf: "data/دل سی اندر چم گلشنک گلزار مزمل.pdf" },
   { name: "چم کراؤ صبحکہ  واوہ پوشن از تمنا دراؤ", pdf: "data/چم کراؤ صبحکہ  واوہ پوشن از تمنا دراؤ .pdf" },
@@ -94,39 +93,39 @@ const sadayeSiamList = [
 ];
 
 /**************************************
- * DATA: KALAM-E-ADFAR (New)
+ * DATA: KALAM-E-ADFAR 
  **************************************/
-// Initialised with list items as requested
 const kalamList = [
   { name: "مول موج", pdf: "data/مول موج.pdf" },
   { name: "خلاصۂ قرآن", pdf: "" }
 ];
 
-
 /**************************************
  * DATA: Sadaye-e-kalum
  **************************************/
-// Initialised with list items as requested
 const kalumList = [
   { name: "Jurat", pdf: "data/Adobe Scan 27 Feb 2026.pdf" },
   { name: "elim", pdf: "data/alim.pdf" },
   { name: "Khush", pdf: "data/khush.pdf" }
 ];
 
-
 /**************************************
- * NAVIGATION
+ * NAVIGATION & HISTORY (MODIFIED FOR BACK BUTTON)
  **************************************/
 
-function showHome() {
+function showHome(pushHistory = true) {
   homeSection.style.display = "block";
   listSection.style.display = "none";
   viewerSection.style.display = "none";
   currentView = "home";
   window.scrollTo(0, 0);
+
+  if (pushHistory) {
+    window.history.pushState({ view: 'home' }, "", "#home");
+  }
 }
 
-function showList(type) {
+function showList(type, pushHistory = true) {
   homeSection.style.display = "none";
   listSection.style.display = "block";
   viewerSection.style.display = "none";
@@ -134,31 +133,39 @@ function showList(type) {
   if (type === 'amma') {
     renderAmmaList();
     currentView = "list-amma";
-    lastListView = "list-amma";
   } else if (type === 'sadaye') {
     renderSadayeList();
     currentView = "list-sadaye";
-    lastListView = "list-sadaye";
   } else if (type === 'kalam') {
     renderKalamList();
     currentView = "list-kalam";
-    lastListView = "list-kalam";
+  } else if (type === 'Sadaye-e-Kalam') { // MODIFIED: Added 4th Book routing
+    renderSadayeEKalamList();
+    currentView = "list-sadaye-e-kalam";
   }
+
+  lastListView = currentView;
   window.scrollTo(0, 0);
+
+  if (pushHistory) {
+    window.history.pushState({ view: currentView, type: type }, "", "#" + currentView);
+  }
 }
 
-function openPDF(pdfPath) {
-  // If opening directly from Home (About Adfar/Rhyme), set view accordingly
+function openPDF(pdfPath, pushHistory = true) {
   if (currentView === "home") {
-    lastListView = "home"; // So back button goes to home
+    lastListView = "home";
   }
 
   homeSection.style.display = "none";
   listSection.style.display = "none";
   viewerSection.style.display = "block";
-
   currentView = "viewer";
   pdfViewer.innerHTML = "";
+
+  if (pushHistory) {
+    window.history.pushState({ view: 'viewer', path: pdfPath, backTo: lastListView }, "", "#viewer");
+  }
 
   if (!pdfPath) {
     pdfViewer.innerHTML = "<p style='text-align:center; padding: 20px;'><strong>PDF will be available soon.</strong></p>";
@@ -174,19 +181,16 @@ function openPDF(pdfPath) {
 function renderAmmaList() {
   surahListEl.innerHTML = "";
 
-  // 0. Create Header Layout (Back + About)
   const headerDiv = document.createElement("div");
   headerDiv.className = "list-header";
 
-  // Back Button (Small)
   const backToHomeBtn = document.createElement("button");
-  backToHomeBtn.innerHTML = "←"; // Simple arrow
+  backToHomeBtn.innerHTML = "←"; 
   backToHomeBtn.className = "list-back-btn";
   backToHomeBtn.title = "Back to Home";
-  backToHomeBtn.onclick = () => showHome();
+  backToHomeBtn.onclick = () => window.history.back(); // MODIFIED: Use History API
   headerDiv.appendChild(backToHomeBtn);
 
-  // About Button (Fills Rest)
   const aboutBtn = document.createElement("div"); 
   aboutBtn.textContent = "About this Book";
   aboutBtn.className = "about";
@@ -201,21 +205,17 @@ function renderAmmaList() {
   headerLi.className = "list-header-li"; 
   headerLi.style.width = "100%"; 
   headerLi.style.display = "block"; 
-
   headerLi.appendChild(headerDiv);
 
-  // About Element Styling manually to match constraints
   const aboutEl = document.createElement("div");
   aboutEl.textContent = "About this Book";
   aboutEl.className = "about"; 
   aboutEl.style.cssText = "background: #c3a006; border: 2px solid #010407; color: #fff; font-weight: 700; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 12px 5px; font-size: 0.9rem; border-radius: 20px; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center;";
-
   aboutEl.onclick = () => openPDF("data/about-this-book.pdf");
   headerDiv.appendChild(aboutEl);
 
   surahListEl.appendChild(headerLi);
 
-  // 2. Add Surahs
   ammaSurahs.forEach(item => {
     const li = document.createElement("li");
     li.textContent = item.name;
@@ -226,33 +226,7 @@ function renderAmmaList() {
 
 function renderSadayeList() {
   surahListEl.innerHTML = "";
-
-  // 0. Create Header Layout (Back Button Only, Left Aligned)
-  const headerLi = document.createElement("li");
-  headerLi.style.background = "transparent";
-  headerLi.style.border = "none";
-  headerLi.style.padding = "0";
-  headerLi.style.boxShadow = "none";
-  headerLi.style.cursor = "default";
-  headerLi.style.width = "100%";
-
-  const backToHomeBtn = document.createElement("button");
-  backToHomeBtn.innerHTML = "←";
-  backToHomeBtn.className = "list-back-btn";
-  backToHomeBtn.title = "Back to Home";
-  backToHomeBtn.onclick = () => showHome();
-
-  // Wrap in div to avoid full width stretching if we want it left aligned
-  const wrapper = document.createElement("div");
-  wrapper.style.display = "flex";
-  wrapper.style.justifyContent = "flex-start";
-  wrapper.style.width = "100%";
-
-  wrapper.appendChild(backToHomeBtn);
-  headerLi.appendChild(wrapper);
-
-  surahListEl.appendChild(headerLi);
-
+  createSimpleHeader();
   sadayeSiamList.forEach(item => {
     const li = document.createElement("li");
     li.textContent = item.name;
@@ -263,8 +237,29 @@ function renderSadayeList() {
 
 function renderKalamList() {
   surahListEl.innerHTML = "";
+  createSimpleHeader();
+  kalamList.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item.name;
+    li.onclick = () => openPDF(item.pdf);
+    surahListEl.appendChild(li);
+  });
+}
 
-  // 0. Create Header Layout (Back Button Only, similar to Sadaye)
+// MODIFIED: Added rendering function for the 4th book
+function renderSadayeEKalamList() {
+  surahListEl.innerHTML = "";
+  createSimpleHeader();
+  kalumList.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item.name;
+    li.onclick = () => openPDF(item.pdf);
+    surahListEl.appendChild(li);
+  });
+}
+
+// MODIFIED: Helper function to avoid repeating the back button code for simple lists
+function createSimpleHeader() {
   const headerLi = document.createElement("li");
   headerLi.style.background = "transparent";
   headerLi.style.border = "none";
@@ -277,7 +272,7 @@ function renderKalamList() {
   backToHomeBtn.innerHTML = "←";
   backToHomeBtn.className = "list-back-btn";
   backToHomeBtn.title = "Back to Home";
-  backToHomeBtn.onclick = () => showHome();
+  backToHomeBtn.onclick = () => window.history.back(); // MODIFIED: Use History API
 
   const wrapper = document.createElement("div");
   wrapper.style.display = "flex";
@@ -286,18 +281,8 @@ function renderKalamList() {
 
   wrapper.appendChild(backToHomeBtn);
   headerLi.appendChild(wrapper);
-
   surahListEl.appendChild(headerLi);
-
-  // Add Kalam Items
-  kalamList.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = item.name;
-    li.onclick = () => openPDF(item.pdf);
-    surahListEl.appendChild(li);
-  });
 }
-
 
 /**************************************
  * RENDER PDF (RESPONSIVE + SHARP)
@@ -307,25 +292,19 @@ function renderPDF(pdfPath) {
     for (let p = 1; p <= pdf.numPages; p++) {
       pdf.getPage(p).then(page => {
         const containerWidth = pdfViewer.clientWidth;
-
         const unscaledViewport = page.getViewport({ scale: 1 });
         const scale = containerWidth / unscaledViewport.width;
-
         const viewport = page.getViewport({ scale });
-
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        // Enhance quality
         const dpr = Math.max(window.devicePixelRatio || 1, 2.5);
-
         canvas.width = Math.floor(viewport.width * dpr);
         canvas.height = Math.floor(viewport.height * dpr);
         canvas.style.width = `${viewport.width}px`;
         canvas.style.height = `${viewport.height}px`;
 
         const transform = [dpr, 0, 0, dpr, 0, 0];
-
         pdfViewer.appendChild(canvas);
 
         page.render({
@@ -339,39 +318,27 @@ function renderPDF(pdfPath) {
 }
 
 /**************************************
- * BACK BUTTON LOGIC
+ * BACK BUTTON LOGIC (MODIFIED FOR MOBILE HISTORY)
  **************************************/
 backBtn.onclick = () => {
-  if (currentView === "viewer") {
-    // Go back to the specific list we came from, or Home
-    if (lastListView === "home") {
-      showHome();
-    } else if (lastListView === "list-amma") {
-      showList("amma");
-    } else if (lastListView === "list-sadaye") {
-      showList("sadaye");
-    } else if (lastListView === "list-kalam") {
-      showList("kalam");
-    }
-  } else {
-    // Default fallback
-    showHome();
-  }
+  window.history.back(); // Triggers the browser's native back functionality
 };
-
-
-// Initial Load
-showHome();
 
 // Browser Back Button handling
-window.onpopstate = function () {
-  // If we want to handle browser back button to navigate within app:
-  if (currentView === "viewer") {
-    backBtn.click();
-  } else if (currentView.startsWith("list-")) {
-    showHome();
+window.onpopstate = function (event) {
+  if (event.state) {
+    if (event.state.view === "home") {
+      showHome(false);
+    } else if (event.state.view.startsWith("list-")) {
+      showList(event.state.type, false);
+    } else if (event.state.view === "viewer") {
+      openPDF(event.state.path, false);
+    }
+  } else {
+    showHome(false); // Fallback
   }
 };
 
-
-
+// MODIFIED: Initialize state on first load so back button works correctly
+window.history.replaceState({ view: 'home' }, "", "#home");
+showHome(false);
